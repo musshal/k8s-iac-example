@@ -17,18 +17,26 @@ spec:
           image: ngoprek/kudemo-todo-api
           ports:
             - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: api-config-map
           # daftar environment variable didefinisikan di sini
-          env:
-            - name: POSTGRES_ENABLED
-              value: "true"
-            - name: DB_HOST
-              value: postgres-cluster-ip-service
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_USER
-              value: postgres
-            - name: DB_DATABASE
-              value: kudemodb
-            - name: DB_PASSWORD
-              value: password-mudah
+          # env:
+          #   - name: POSTGRES_ENABLED
+          #     value: "true"
+          #   - name: DB_HOST
+          #     value: postgres-cluster-ip-service
+          #   - name: DB_PORT
+          #     value: "5432"
+          #   - name: DB_USER
+          #     value: postgres
+          #   - name: DB_DATABASE
+          #     value: kudemodb
+            # password tidak ditulis secara langsung lagi
+            # tapi merujuk ke Secret postgres-secret
+            # - name: DB_PASSWORD
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: postgres-secret
+            #       key: password
 
